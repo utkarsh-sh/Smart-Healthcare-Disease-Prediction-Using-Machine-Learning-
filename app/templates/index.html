@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Healthcare Disease Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+  <a class="skip" href="#predict-form">Skip to the form</a>
+
+  <header class="top">
+    <h1>Smart Healthcare Disease Prediction</h1>
+    <p>Capstone project BT60, IILM University. Three machine-learning risk models served through one API.</p>
+  </header>
+
+  <p class="disclaimer" role="note">{{ disclaimer }}</p>
+
+  <main class="layout">
+    <nav class="modules" aria-label="Disease modules">
+      <ul id="module-list"></ul>
+    </nav>
+
+    <section class="workspace" aria-labelledby="module-title">
+      <div id="module-intro"></div>
+      <form id="predict-form" novalidate>
+        <div id="fields" class="fields"></div>
+        <div class="actions">
+          <button type="submit" class="primary" id="btn-predict">Predict risk</button>
+          <button type="button" id="btn-pos">Load typical positive case</button>
+          <button type="button" id="btn-neg">Load typical negative case</button>
+          <button type="button" class="quiet" id="btn-clear">Clear form</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="result" id="result" aria-live="polite" aria-label="Prediction result"></aside>
+  </main>
+
+  <section class="history" aria-labelledby="history-title">
+    <div class="history-head">
+      <h2 id="history-title">Recent predictions</h2>
+      <button type="button" class="quiet" id="btn-history">Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Time (UTC)</th><th>Module</th><th>Risk estimate</th><th>Screening flag</th><th>Model</th><th>Latency</th></tr></thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </div>
+    <p class="note" id="history-empty" hidden>No predictions yet. Results appear here after you run one.</p>
+  </section>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+{
+  "key": "heart",
+  "name": "Heart Disease",
+  "description": "Likelihood of coronary heart disease from 13 clinical attributes.",
+  "version": "1.0.0",
+  "trained_at": "2026-10-28T09:48:34+00:00",
+  "selected_model": "SVM (RBF)",
+  "selected_params": {
+    "C": 1,
+    "gamma": 0.01
+  },
+  "selection_rule": "highest mean ROC-AUC in 5x3 repeated CV on the training split; ties (<=0.002) -> simpler model",
+  "positive_label": "Elevated heart-disease risk",
+  "negative_label": "Lower heart-disease risk",
+  "features": [
+    {
+      "name": "age",
+      "label": "Age",
+      "kind": "integer",
+      "min": 20,
+      "max": 100,
+      "unit": "years",
+      "help": "",
+      "choices": null,
+      "allow_missing": false
+    },
+    {
+      "name": "sex",
+      "label": "Sex",
+      "kind": "binary",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "",
+      "choices": [
+        {
+          "value": 0,
+          "label": "Female"
+        },
+        {
+          "value": 1,
+          "label": "Male"
+        }
+      ],
+      "allow_missing": false
+    },
+    {
+      "name": "cp",
+      "label": "Chest-pain type (dataset code)",
+      "kind": "category",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "Coded exactly as in the source CSV; the published codebook for this CSV is inconsistent with the original UCI coding, so no clinical names are attached.",
+      "choices": [
+        {
+          "value": 0,
+          "label": "Code 0"
+        },
+        {
+          "value": 1,
+          "label": "Code 1"
+        },
+        {
+          "value": 2,
+          "label": "Code 2"
+        },
+        {
+          "value": 3,
+          "label": "Code 3"
+        }
+      ],
+      "allow_missing": false
+    },
+    {
+      "name": "trestbps",
+      "label": "Resting blood pressure",
+      "kind": "numeric",
+      "min": 70,
+      "max": 250,
+      "unit": "mmHg",
+      "help": "",
+      "choices": null,
+      "allow_missing": false
+    },
+    {
+      "name": "chol",
+      "label": "Serum cholesterol",
+      "kind": "numeric",
+      "min": 100,
+      "max": 600,
+      "unit": "mg/dL",
+      "help": "",
+      "choices": null,
+      "allow_missing": false
+    },
+    {
+      "name": "fbs",
+      "label": "Fasting blood sugar > 120 mg/dL",
+      "kind": "binary",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "",
+      "choices": [
+        {
+          "value": 0,
+          "label": "No"
+        },
+        {
+          "value": 1,
+          "label": "Yes"
+        }
+      ],
+      "allow_missing": false
+    },
+    {
+      "name": "restecg",
+      "label": "Resting ECG result (dataset code)",
+      "kind": "category",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "Coded as in the source CSV.",
+      "choices": [
+        {
+          "value": 0,
+          "label": "Code 0"
+        },
+        {
+          "value": 1,
+          "label": "Code 1"
+        },
+        {
+          "value": 2,
+          "label": "Code 2"
+        }
+      ],
+      "allow_missing": false
+    },
+    {
+      "name": "thalach",
+      "label": "Maximum heart rate achieved",
+      "kind": "numeric",
+      "min": 60,
+      "max": 220,
+      "unit": "bpm",
+      "help": "",
+      "choices": null,
+      "allow_missing": false
+    },
+    {
+      "name": "exang",
+      "label": "Exercise-induced angina",
+      "kind": "binary",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "",
+      "choices": [
+        {
+          "value": 0,
+          "label": "No"
+        },
+        {
+          "value": 1,
+          "label": "Yes"
+        }
+      ],
+      "allow_missing": false
+    },
+    {
+      "name": "oldpeak",
+      "label": "ST depression induced by exercise",
+      "kind": "numeric",
+      "min": 0,
+      "max": 7,
+      "unit": "mm",
+      "help": "ST depression relative to rest.",
+      "choices": null,
+      "allow_missing": false
+    },
+    {
+      "name": "slope",
+      "label": "Slope of peak-exercise ST segment (dataset code)",
+      "kind": "category",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "Coded as in the source CSV.",
+      "choices": [
+        {
+          "value": 0,
+          "label": "Code 0"
+        },
+        {
+          "value": 1,
+          "label": "Code 1"
+        },
+        {
+          "value": 2,
+          "label": "Code 2"
+        }
+      ],
+      "allow_missing": false
+    },
+    {
+      "name": "ca",
+      "label": "Major vessels coloured by fluoroscopy",
+      "kind": "integer",
+      "min": 0,
+      "max": 3,
+      "unit": "",
+      "help": "Number of major vessels (0-3).",
+      "choices": null,
+      "allow_missing": true
+    },
+    {
+      "name": "thal",
+      "label": "Thallium stress-test result (dataset code)",
+      "kind": "category",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "help": "Coded as in the source CSV.",
+      "choices": [
+        {
+          "value": 1,
+          "label": "Code 1"
+        },
+        {
+          "value": 2,
+          "label": "Code 2"
+        },
+        {
+          "value": 3,
+          "label": "Code 3"
+        }
+      ],
+      "allow_missing": true
+    }
+  ],
+  "sentinels": {
+    "ca": [
+      4
+    ],
+    "thal": [
+      0
+    ]
+  },
+  "thresholds": {
+    "default": 0.5,
+    "screening": 0.29232964070364803,
+    "screening_target_recall": 0.9
+  },
+  "train_stats": {
+    "age": {
+      "p1": 35.0,
+      "p99": 71.0,
+      "min": 29.0,
+      "max": 77.0,
+      "median": 55.0,
+      "mean": 54.522821576763484,
+      "std": 9.007433152987176,
+      "baseline": 55.0
+    },
+    "sex": {
+      "baseline": 1.0,
+      "distribution": {
+        "1": 0.6721991701244814,
+        "0": 0.3278008298755187
+      }
+    },
+    "cp": {
+      "baseline": 0.0,
+      "distribution": {
+        "0": 0.4896265560165975,
+        "2": 0.26141078838174275,
+        "1": 0.17012448132780084,
+        "3": 0.07883817427385892
+      }
+    },
+    "trestbps": {
+      "p1": 100.0,
+      "p99": 180.0,
+      "min": 94.0,
+      "max": 200.0,
+      "median": 130.0,
+      "mean": 131.25726141078837,
+      "std": 17.58764360194053,
+      "baseline": 130.0
+    },
+    "chol": {
+      "p1": 152.2,
+      "p99": 408.2,
+      "min": 126.0,
+      "max": 564.0,
+      "median": 244.0,
+      "mean": 248.87551867219918,
+      "std": 53.436889004700596,
+      "baseline": 244.0
+    },
+    "fbs": {
+      "baseline": 0.0,
+      "distribution": {
+        "0": 0.8464730290456431,
+        "1": 0.15352697095435686
+      }
+    },
+    "restecg": {
+      "baseline": 1.0,
+      "distribution": {
+        "1": 0.5020746887966805,
+        "0": 0.4854771784232365,
+        "2": 0.012448132780082987
+      }
+    },
+    "thalach": {
+      "p1": 95.4,
+      "p99": 189.2,
+      "min": 88.0,
+      "max": 202.0,
+      "median": 152.0,
+      "mean": 149.9253112033195,
+      "std": 21.97220361442116,
+      "baseline": 152.0
+    },
+    "exang": {
+      "baseline": 0.0,
+      "distribution": {
+        "0": 0.6556016597510373,
+        "1": 0.34439834024896265
+      }
+    },
+    "oldpeak": {
+      "p1": 0.0,
+      "p99": 4.2,
+      "min": 0.0,
+      "max": 6.2,
+      "median": 0.8,
+      "mean": 1.0609958506224066,
+      "std": 1.1665357563384178,
+      "baseline": 0.8
+    },
+    "slope": {
+      "baseline": 1.0,
+      "distribution": {
+        "1": 0.4730290456431535,
+        "2": 0.4605809128630705,
+        "0": 0.06639004149377593
+      }
+    },
+    "ca": {
+      "p1": 0.0,
+      "p99": 3.0,
+      "min": 0.0,
+      "max": 3.0,
+      "median": 0.0,
+      "mean": 0.6166666666666667,
+      "std": 0.8839179928766593,
+      "baseline": 0.0
+    },
+    "thal": {
+      "baseline": 2.0,
+      "distribution": {
+        "2": 0.5458333333333333,
+        "3": 0.4,
+        "1": 0.05416666666666667
+      }
+    }
+  },
+  "metrics": {
+    "test": {
+      "threshold": 0.5,
+      "accuracy": 0.8524590163934426,
+      "precision": 0.88,
+      "recall": 0.7857142857142857,
+      "specificity": 0.9090909090909091,
+      "f1": 0.8301886792452831,
+      "mcc": 0.7040083136069528,
+      "roc_auc": 0.9112554112554112,
+      "pr_auc": 0.9034339344127584,
+      "brier": 0.11586076075715826,
+      "confusion": {
+        "tn": 30,
+        "fp": 3,
+        "fn": 6,
+        "tp": 22
+      },
+      "n": 61
+    },
+    "test_ci95": {
+      "accuracy": [
+        0.7704918032786885,
+        0.9344262295081968
+      ],
+      "precision": [
+        0.75,
+        1.0
+      ],
+      "recall": [
+        0.6296296296296297,
+        0.9230769230769231
+      ],
+      "f1": [
+        0.7111111111111111,
+        0.9230769230769231
+      ],
+      "roc_auc": [
+        0.8350752534103828,
+        0.9700062929061785
+      ]
+    },
+    "screening_test": {
+      "threshold": 0.29232964070364803,
+      "accuracy": 0.7868852459016393,
+      "precision": 0.7142857142857143,
+      "recall": 0.8928571428571429,
+      "specificity": 0.696969696969697,
+      "f1": 0.7936507936507936,
+      "mcc": 0.5943466518233755,
+      "roc_auc": 0.9112554112554112,
+      "pr_auc": 0.9034339344127584,
+      "brier": 0.11586076075715826,
+      "confusion": {
+        "tn": 23,
+        "fp": 10,
+        "fn": 3,
+        "tp": 25
+      },
+      "n": 61
+    }
+  },
+  "examples": {
+    "positive": {
+      "values": {
+        "age": 42,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 136.0,
+        "chol": 315.0,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 125.0,
+        "exang": 1,
+        "oldpeak": 1.8,
+        "slope": 1,
+        "ca": 0,
+        "thal": 1
+      },
+      "true_label": 1,
+      "model_probability": 0.8679517863502242,
+      "source": "held-out test row #279"
+    },
+    "negative": {
+      "values": {
+        "age": 45,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 115.0,
+        "chol": 260.0,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 185.0,
+        "exang": 0,
+        "oldpeak": 0.0,
+        "slope": 2,
+        "ca": 0,
+        "thal": 2
+      },
+      "true_label": 0,
+      "model_probability": 0.08297218724398567,
+      "source": "held-out test row #57"
+    }
+  },
+  "source": "UCI Heart Disease (Cleveland subset), 303 patients",
+  "population_note": "Single-centre (Cleveland Clinic) cohort, mostly older male patients; small sample.",
+  "random_state": 42,
+  "n_train": 241,
+  "n_test": 61,
+  "environment": {
+    "python": "3.13.18",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "platform": "Linux-6.18.44-fc-v180-x86_64-with-glibc2.39",
+    "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpu_logical_cores": 2,
+    "ram_total_gb": 7.8
+  }
+}

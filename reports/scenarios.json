@@ -1,0 +1,156 @@
+{
+  "summary": {
+    "scenarios": 21,
+    "passed": 21,
+    "model_version": "1.0.0"
+  },
+  "rows": [
+    {
+      "id": "S1",
+      "scenario": "GET /api/health",
+      "expected": "200, status ok, 3 modules, database ok",
+      "observed": "200, status ok, modules ['diabetes', 'heart', 'breast'], database ok",
+      "pass": true
+    },
+    {
+      "id": "S2",
+      "scenario": "GET /api/diseases",
+      "expected": "200, modules in registry order diabetes, heart, breast",
+      "observed": "200, diabetes, heart, breast",
+      "pass": true
+    },
+    {
+      "id": "S3",
+      "scenario": "Heart module, typical positive case",
+      "expected": "200, risk above the 0.5 line, screening flag on",
+      "observed": "200, risk 0.868, flag True, 3 factors",
+      "pass": true
+    },
+    {
+      "id": "S4",
+      "scenario": "Heart module, typical negative case",
+      "expected": "200, risk below the screening line, flag off",
+      "observed": "200, risk 0.083, flag False",
+      "pass": true
+    },
+    {
+      "id": "S5",
+      "scenario": "Diabetes, glucose = 9999",
+      "expected": "422 with a field message naming the range",
+      "observed": "422, Glucose: Must be between 40 and 300 mg/dL.",
+      "pass": true
+    },
+    {
+      "id": "S6",
+      "scenario": "Diabetes, required Age omitted",
+      "expected": "422, Age: Required",
+      "observed": "422, Age: Required.",
+      "pass": true
+    },
+    {
+      "id": "S7",
+      "scenario": "Diabetes, Age = 40.5",
+      "expected": "422, whole number required",
+      "observed": "422, Age: Must be a whole number.",
+      "pass": true
+    },
+    {
+      "id": "S8",
+      "scenario": "Diabetes, BMI = NaN in the JSON body",
+      "expected": "422, value must be finite",
+      "observed": "422, BMI: Must be a finite number.",
+      "pass": true
+    },
+    {
+      "id": "S9",
+      "scenario": "Diabetes, unknown field Cholesterol",
+      "expected": "422, unknown field rejected",
+      "observed": "422, fields ['Cholesterol']",
+      "pass": true
+    },
+    {
+      "id": "S10",
+      "scenario": "Rejected requests S5 to S9 are not logged",
+      "expected": "history count unchanged",
+      "observed": "2 before, 2 after",
+      "pass": true
+    },
+    {
+      "id": "S11",
+      "scenario": "Diabetes, optional insulin left blank",
+      "expected": "200 plus a 'not provided' warning",
+      "observed": "200, risk 0.463, warnings 1: 2-hour serum insulin not provided: replaced by the training median/mode.",
+      "pass": true
+    },
+    {
+      "id": "S12",
+      "scenario": "Diabetes, valid but unusual insulin = 880",
+      "expected": "200 plus an out-of-range-for-training warning",
+      "observed": "200, 2-hour serum insulin = 880 lies outside the range typical of the training data (18.92 to 542.3); the estimate may be less reliable.",
+      "pass": true
+    },
+    {
+      "id": "S13",
+      "scenario": "Unknown module asthma",
+      "expected": "404 JSON error",
+      "observed": "404, Unknown disease module 'asthma'. Available: ['breast', 'diabetes', 'heart']",
+      "pass": true
+    },
+    {
+      "id": "S14",
+      "scenario": "Malformed JSON body",
+      "expected": "400 JSON error",
+      "observed": "400, {'_payload': 'Request body must be valid JSON (Content-Type: application/json).'}",
+      "pass": true
+    },
+    {
+      "id": "S15",
+      "scenario": "Body larger than 1 MB",
+      "expected": "413 JSON error",
+      "observed": "413",
+      "pass": true
+    },
+    {
+      "id": "S16",
+      "scenario": "GET on a POST-only route",
+      "expected": "405 JSON error",
+      "observed": "405, The method is not allowed for the requested URL.",
+      "pass": true
+    },
+    {
+      "id": "S17",
+      "scenario": "Batch of 501 rows",
+      "expected": "400, limit of 500 enforced",
+      "observed": "400, {'rows': 'At most 500 rows per request.'}",
+      "pass": true
+    },
+    {
+      "id": "S18",
+      "scenario": "Batch of 500 rows",
+      "expected": "200, one result per row",
+      "observed": "200, 500 results",
+      "pass": true
+    },
+    {
+      "id": "S19",
+      "scenario": "Three valid breast-cancer predictions",
+      "expected": "history grows by exactly 3",
+      "observed": "4 before, 7 after",
+      "pass": true
+    },
+    {
+      "id": "S20",
+      "scenario": "Hold-out metrics shown by the API (and UI) versus results.json",
+      "expected": "identical for every module and metric",
+      "observed": "15 of 15 values identical",
+      "pass": true
+    },
+    {
+      "id": "S21",
+      "scenario": "Served screening line and model name versus results.json",
+      "expected": "identical for every module",
+      "observed": "3 of 3 modules identical",
+      "pass": true
+    }
+  ]
+}

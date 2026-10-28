@@ -1,0 +1,144 @@
+/* Chart-paper clinical palette. One red, reserved for elevated risk. */
+:root {
+  --paper: #eef3f2;
+  --surface: #ffffff;
+  --ink: #14272c;
+  --ink-soft: #47595e;
+  --line: #c9d6d4;
+  --teal: #1b6b73;
+  --teal-dark: #124d54;
+  --red: #b4322b;
+  --amber-bg: #fbf1da;
+  --amber-ink: #6e4a07;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+  margin: 0; color: var(--ink); font: 16px/1.5 var(--sans); min-height: 100vh;
+  background-color: var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(20, 39, 44, .05) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(20, 39, 44, .05) 23px 24px);
+}
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 12px; top: 12px; background: var(--surface); padding: 8px 12px; z-index: 10; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+.top { padding: 28px 24px 8px; max-width: 1280px; margin: 0 auto; }
+.top h1 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1.15; }
+.top p { margin: 6px 0 0; color: var(--ink-soft); max-width: 62ch; }
+
+.disclaimer {
+  max-width: 1232px; margin: 14px auto 0; padding: 10px 14px; font-size: .9rem;
+  background: var(--amber-bg); color: var(--amber-ink); border-left: 4px solid #c58f1f;
+}
+
+/* ---- layout ---------------------------------------------------------------- */
+.layout {
+  display: grid; gap: 20px; align-items: start;
+  grid-template-columns: 210px minmax(0, 1fr) 360px;
+  max-width: 1280px; margin: 20px auto; padding: 0 24px;
+}
+.modules ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.modules button {
+  width: 100%; text-align: left; padding: 12px 14px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 6px; font: inherit; color: var(--ink); cursor: pointer;
+}
+.modules button strong { display: block; font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+.modules button span { font-size: .82rem; color: var(--ink-soft); }
+.modules button[aria-current="true"] { border-color: var(--teal); box-shadow: inset 4px 0 0 var(--teal); background: #f6fbfa; }
+
+.workspace { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+#module-intro h2 { font-size: 1.6rem; }
+#module-intro .desc { margin: 4px 0 14px; color: var(--ink-soft); }
+.perf { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 0 0 8px; padding: 12px 0; border-block: 1px solid var(--line); }
+.perf div { min-width: 120px; }
+.perf dt { font-size: .82rem; color: var(--ink-soft); }
+.perf dd { margin: 0; font-family: var(--serif); font-size: 1.45rem; line-height: 1.2; }
+.perf dd small { display: block; font-family: var(--sans); font-size: .76rem; color: var(--ink-soft); }
+.meta { font-size: .86rem; color: var(--ink-soft); margin: 8px 0 18px; }
+.meta p { margin: 2px 0; }
+
+.fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px 18px; }
+.field label { display: block; font-weight: 600; font-size: .92rem; }
+.field .hint { display: block; font-size: .78rem; color: var(--ink-soft); font-weight: 400; }
+input, select {
+  width: 100%; margin-top: 4px; padding: 9px 10px; font: inherit; color: var(--ink);
+  background: #fbfdfd; border: 1px solid #9fb2b0; border-radius: 5px;
+}
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
+.field.invalid input, .field.invalid select { border-color: var(--red); background: #fdf3f2; }
+.field .err { display: block; color: var(--red); font-size: .82rem; margin-top: 3px; min-height: 0; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+button { font: inherit; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--teal); background: var(--surface); color: var(--teal-dark); cursor: pointer; }
+button:hover { background: #eaf4f3; }
+button.primary { background: var(--teal); color: #fff; font-weight: 600; }
+button.primary:hover { background: var(--teal-dark); }
+button.quiet { border-color: transparent; color: var(--ink-soft); text-decoration: underline; }
+button:disabled { opacity: .6; cursor: progress; }
+
+/* ---- result panel ---------------------------------------------------------- */
+.result { position: sticky; top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+.result .empty { color: var(--ink-soft); margin: 0; }
+.result h2 { font-size: 1.15rem; margin-bottom: 4px; }
+.risk-number { font-family: var(--serif); font-size: 4.2rem; line-height: 1; margin: 6px 0 2px; font-variant-numeric: lining-nums; }
+.risk-number.high { color: var(--red); }
+.risk-number.low { color: var(--teal); }
+.risk-label { font-weight: 600; margin: 0 0 18px; }
+
+.ruler { position: relative; height: 12px; background: #dfe8e7; border-radius: 6px; margin: 26px 0 38px; }
+.ruler .fill { position: absolute; inset: 0 auto 0 0; border-radius: 6px 0 0 6px; background: var(--teal); }
+.ruler .fill.high { background: var(--red); }
+.ruler .tick { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--ink); }
+.ruler .tick span { position: absolute; white-space: nowrap; font-size: .74rem; color: var(--ink-soft); transform: translateX(-50%); }
+.ruler .tick.above span { bottom: calc(100% + 2px); }
+.ruler .tick.below span { top: calc(100% + 2px); }
+.ruler .pin { position: absolute; top: -5px; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: var(--surface); border: 4px solid var(--ink); }
+
+.flag { margin: 0 0 18px; padding: 10px 12px; border-radius: 6px; font-size: .92rem; background: #eef6f5; }
+.flag.on { background: #fbe9e7; }
+
+.factors h3 { font-size: 1rem; margin-bottom: 2px; }
+.factors .cap { font-size: .8rem; color: var(--ink-soft); margin: 0 0 10px; }
+.factor { margin: 0 0 10px; }
+.factor .row { display: flex; justify-content: space-between; gap: 10px; font-size: .9rem; }
+.factor .row b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.factor .bar { position: relative; height: 8px; margin-top: 4px; background: #eef3f2; }
+.factor .bar::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--ink-soft); }
+.factor .bar i { position: absolute; top: 0; bottom: 0; }
+.factor .bar i.up { left: 50%; background: var(--red); }
+.factor .bar i.down { right: 50%; background: var(--teal); }
+
+.warn { margin: 14px 0 0; padding: 0; list-style: none; font-size: .84rem; color: var(--amber-ink); }
+.warn li { background: var(--amber-bg); padding: 6px 10px; margin-top: 6px; border-radius: 4px; }
+.foot { margin: 16px 0 0; font-size: .78rem; color: var(--ink-soft); }
+.error-box { background: #fdf3f2; border-left: 4px solid var(--red); padding: 10px 12px; font-size: .92rem; }
+
+/* ---- history --------------------------------------------------------------- */
+.history { max-width: 1232px; margin: 8px auto 48px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.history-head { display: flex; justify-content: space-between; align-items: center; }
+.history h2 { font-size: 1.25rem; }
+.table-wrap { overflow-x: auto; margin-top: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-weight: 600; color: var(--ink-soft); }
+td.num { font-variant-numeric: tabular-nums; }
+.note { color: var(--ink-soft); font-size: .9rem; }
+
+@media (max-width: 1040px) {
+  .layout { grid-template-columns: 1fr; }
+  .modules ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .result { position: static; }
+}
+@media (max-width: 560px) {
+  .modules ul { grid-template-columns: 1fr; }
+  .top, .layout { padding-inline: 16px; }
+  .risk-number { font-size: 3.4rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ruler .fill, .ruler .pin { transition: width .45s ease, left .45s ease; }
+}

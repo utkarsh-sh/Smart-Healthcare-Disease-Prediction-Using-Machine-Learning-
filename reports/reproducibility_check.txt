@@ -1,0 +1,4 @@
+compared reports/results.json with /tmp/claude-0/-home-claude/692295c9-0ac7-5853-bbbe-2c28f6e5db3e/scratchpad/repro/reports/results.json
+differing values: 141 (timing or memory: 141, metrics or parameters: 0)
+timing keys that differ: {'generated_at': 1, 'peak_rss_mb_main_process': 1, 'total_training_wall_s': 1, 'fit_time_s': 48, 'wall_s': 63, 'mean': 3, 'p50': 3, 'p95': 3, 'p99': 3, 'max': 3, 'total_ms': 3, 'rows_per_s': 3, 'final_fit_time_s': 3, 'total_wall_s': 3}
+RESULT: metrics identical

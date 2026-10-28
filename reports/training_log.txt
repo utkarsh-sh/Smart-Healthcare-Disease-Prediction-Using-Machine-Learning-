@@ -1,0 +1,73 @@
+[    0.0s] === Diabetes ===
+[    0.0s] data: 768 rows, train 614 / test 154, positive rate 0.349, missing {'Glucose': 5, 'BloodPressure': 35, 'SkinThickness': 227, 'Insulin': 374, 'BMI': 11}
+[    1.8s] baseline CV  Logistic Regression    AUC 0.8425  F1 0.6461
+[    2.2s] baseline CV  KNN                    AUC 0.7976  F1 0.6134
+[    2.6s] baseline CV  SVM (RBF)              AUC 0.8317  F1 0.6216
+[    6.6s] baseline CV  Random Forest          AUC 0.8226  F1 0.6240
+[    7.9s] baseline CV  Gradient Boosting      AUC 0.8204  F1 0.6208
+[    8.4s] tuned        Logistic Regression    CV-AUC 0.8450  {'C': 0.1, 'class_weight': 'balanced'}
+[    9.0s] tuned        KNN                    CV-AUC 0.8328  {'n_neighbors': 15, 'weights': 'distance'}
+[   10.8s] tuned        SVM (RBF)              CV-AUC 0.8463  {'C': 1, 'gamma': 0.01}
+[   31.1s] tuned        Random Forest          CV-AUC 0.8400  {'max_depth': 4, 'min_samples_leaf': 5, 'n_estimators': 400}
+[   35.3s] tuned        Gradient Boosting      CV-AUC 0.8274  {'learning_rate': 0.03, 'max_depth': 2, 'n_estimators': 100}
+[   48.2s] selection CV Logistic Regression    AUC 0.8447 ± 0.0312
+[   48.2s] selection CV KNN                    AUC 0.8361 ± 0.0376
+[   48.2s] selection CV SVM (RBF)              AUC 0.8443 ± 0.0287
+[   48.2s] selection CV Random Forest          AUC 0.8413 ± 0.0328
+[   48.2s] selection CV Gradient Boosting      AUC 0.8401 ± 0.0306
+[   48.2s] selection CV Soft-Voting Ensemble   AUC 0.8485 ± 0.0320   <-- selected
+[   60.1s] HOLD-OUT     Soft-Voting Ensemble: acc 0.6948 rec 0.4815 f1 0.5253 auc 0.8098
+[   63.9s] screening    thr 0.262: test recall 0.889, specificity 0.600
+[   83.5s] stability    acc 0.7584 ± 0.0288 over 10 splits
+[   88.1s] ablation diabetes/zeros_treated_as_missing (ours): Logistic Regression AUC 0.8425, Random Forest AUC 0.8226
+[   92.3s] ablation diabetes/zeros_kept_as_values: Logistic Regression AUC 0.8309, Random Forest AUC 0.8186
+[  104.2s] saved diabetes_model.joblib (289 KB); total 104.2s
+[  104.2s] === Heart Disease ===
+[  104.2s] data: 302 rows, train 241 / test 61, positive rate 0.457, missing {'ca': 4, 'thal': 2}
+[  104.9s] baseline CV  Logistic Regression    AUC 0.9072  F1 0.8253
+[  105.3s] baseline CV  KNN                    AUC 0.8743  F1 0.8234
+[  105.7s] baseline CV  SVM (RBF)              AUC 0.9022  F1 0.8174
+[  109.1s] baseline CV  Random Forest          AUC 0.9030  F1 0.8108
+[  110.2s] baseline CV  Gradient Boosting      AUC 0.8813  F1 0.7833
+[  111.1s] tuned        Logistic Regression    CV-AUC 0.9081  {'C': 0.1, 'class_weight': None}
+[  112.0s] tuned        KNN                    CV-AUC 0.8935  {'n_neighbors': 15, 'weights': 'distance'}
+[  113.1s] tuned        SVM (RBF)              CV-AUC 0.9127  {'C': 1, 'gamma': 0.01}
+[  130.5s] tuned        Random Forest          CV-AUC 0.9170  {'max_depth': None, 'min_samples_leaf': 5, 'n_estimators': 200}
+[  133.9s] tuned        Gradient Boosting      CV-AUC 0.8956  {'learning_rate': 0.03, 'max_depth': 2, 'n_estimators': 200}
+[  143.6s] selection CV Logistic Regression    AUC 0.9103 ± 0.0511
+[  143.6s] selection CV KNN                    AUC 0.8894 ± 0.0536
+[  143.6s] selection CV SVM (RBF)              AUC 0.9142 ± 0.0484   <-- selected
+[  143.6s] selection CV Random Forest          AUC 0.9116 ± 0.0453
+[  143.6s] selection CV Gradient Boosting      AUC 0.8954 ± 0.0462
+[  143.6s] selection CV Soft-Voting Ensemble   AUC 0.9124 ± 0.0435
+[  154.0s] HOLD-OUT     SVM (RBF): acc 0.8525 rec 0.7857 f1 0.8302 auc 0.9113
+[  155.1s] screening    thr 0.292: test recall 0.893, specificity 0.697
+[  159.3s] stability    acc 0.8590 ± 0.0321 over 10 splits
+[  163.0s] ablation heart/invalid_codes_ca4_thal0_to_missing (ours): Logistic Regression AUC 0.9072, Random Forest AUC 0.9030
+[  166.7s] ablation heart/invalid_codes_kept_as_values: Logistic Regression AUC 0.9074, Random Forest AUC 0.9059
+[  168.9s] saved heart_model.joblib (7 KB); total 64.7s
+[  168.9s] === Breast Cancer ===
+[  168.9s] data: 569 rows, train 455 / test 114, positive rate 0.373, missing {}
+[  169.3s] baseline CV  Logistic Regression    AUC 0.9852  F1 0.9205
+[  169.5s] baseline CV  KNN                    AUC 0.9701  F1 0.9080
+[  169.8s] baseline CV  SVM (RBF)              AUC 0.9851  F1 0.9168
+[  173.2s] baseline CV  Random Forest          AUC 0.9819  F1 0.9205
+[  174.8s] baseline CV  Gradient Boosting      AUC 0.9858  F1 0.9222
+[  175.2s] tuned        Logistic Regression    CV-AUC 0.9852  {'C': 0.1, 'class_weight': 'balanced'}
+[  175.6s] tuned        KNN                    CV-AUC 0.9843  {'n_neighbors': 9, 'weights': 'uniform'}
+[  176.3s] tuned        SVM (RBF)              CV-AUC 0.9872  {'C': 100, 'gamma': 0.01}
+[  195.9s] tuned        Random Forest          CV-AUC 0.9846  {'max_depth': 8, 'min_samples_leaf': 1, 'n_estimators': 400}
+[  200.1s] tuned        Gradient Boosting      CV-AUC 0.9894  {'learning_rate': 0.1, 'max_depth': 2, 'n_estimators': 200}
+[  214.8s] selection CV Logistic Regression    AUC 0.9842 ± 0.0087
+[  214.8s] selection CV KNN                    AUC 0.9811 ± 0.0109
+[  214.8s] selection CV SVM (RBF)              AUC 0.9876 ± 0.0087   <-- selected
+[  214.8s] selection CV Random Forest          AUC 0.9821 ± 0.0097
+[  214.8s] selection CV Gradient Boosting      AUC 0.9870 ± 0.0085
+[  214.8s] selection CV Soft-Voting Ensemble   AUC 0.9884 ± 0.0062
+[  225.3s] HOLD-OUT     SVM (RBF): acc 0.9737 rec 0.9524 f1 0.9639 auc 0.9891
+[  227.3s] screening    thr 0.519: test recall 0.952, specificity 0.986
+[  229.3s] stability    acc 0.9465 ± 0.0120 over 10 splits
+[  237.9s] ablation breast/mean10_features (ours): Logistic Regression AUC 0.9852, Random Forest AUC 0.9819
+[  237.9s] ablation breast/all30_features: Logistic Regression AUC 0.9960, Random Forest AUC 0.9898
+[  238.7s] saved breast_model.joblib (7 KB); total 69.9s
+[  238.7s] results written to /home/claude/bt60/reports/results.json

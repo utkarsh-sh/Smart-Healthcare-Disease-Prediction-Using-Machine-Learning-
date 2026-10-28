@@ -1,0 +1,5 @@
+ensemble (whole)           p50  37.76 ms   p95  50.85 ms
+Logistic Regression        p50   4.12 ms   p95   5.00 ms
+SVM (RBF)                  p50   4.05 ms   p95   4.50 ms
+Random Forest  [400 trees] p50  24.02 ms   p95  30.51 ms
+Gradient Boosting  [100 trees] p50   4.85 ms   p95   5.99 ms
